@@ -2,6 +2,9 @@ JSONArray countries;
 StringList allFlagColors; 
 
 void setup(){
+ size(1200,800);
+ background(0);
+ 
  countries = loadJSONArray("flagColors.json");
  allFlagColors = new StringList(); 
   
@@ -17,8 +20,13 @@ void setup(){
     allFlagColors.append(hex);
    }  
   }
-  
-  println(allFlagColors);
- 
  }
+
+ println(allFlagColors);
+ //get all colors and convert them to rgb
+
+}
+
+void draw() {
+  
 }
