@@ -1,0 +1,42 @@
+[{
+  "name": "Afghanistan",
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Afghanistan.svg/150px-Flag_of_Afghanistan.svg.png",
+  "colors": [{
+    "hex": "#000000",
+    "percent": 33.33
+  }, {
+    "hex": "#009900",
+    "percent": 33.33
+  }, {
+    "hex": "#BF0000",
+    "percent": 24.99
+  }, {
+    "hex": "#D2534D",
+    "percent": 3.57
+  }, {
+    "hex": "#DB8B70",
+    "percent": 2.54
+  }, {
+    "hex": "#F4E5D7",
+    "percent": 1.51
+  }]
+}, {
+  "name": "Albania",
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Flag_of_Albania.svg/140px-Flag_of_Albania.svg.png",
+  "colors": [{
+    "hex": "#E41E20",
+    "percent": 85.78
+  }, {
+    "hex": "#020000",
+    "percent": 11.74
+  }, {
+    "hex": "#6F0F10",
+    "percent": 1.75
+  }, {
+    "hex": "#AF1719",
+    "percent": 0.44
+  }, {
+    "hex": "#000000",
+    "percent": 0.30
+  }]
+}]
