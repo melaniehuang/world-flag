@@ -1,4 +1,5 @@
 JSONArray countries;
+//Using ArrayLists of ArrayLists here because you can check equality
 ArrayList<ArrayList<Integer>> colorList = new ArrayList<ArrayList<Integer>>();
 ArrayList<Integer> rgbColor = new ArrayList<Integer>();
 
