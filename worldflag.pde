@@ -23,11 +23,19 @@ void setup(){
     }
   }
 
-  println(colorList.get(3));
+  println(colorList);
 
 }
 
 void draw() {
+  noStroke();
+  
+  int rectHeight = height/colorList.size();
+  
+  for(int i = 0; i < colorList.size(); i++){
+    fill(colorList.get(i).get(0),colorList.get(i).get(1),colorList.get(i).get(2));
+    rect(0,i + i*rectHeight,width,rectHeight);
+  }
 }
 
 ArrayList<Integer> convertColor (String countryColor){
