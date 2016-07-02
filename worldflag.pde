@@ -1,7 +1,6 @@
 JSONArray countries;
 //Using ArrayLists of ArrayLists here because you can check equality
 ArrayList<ArrayList<Integer>> colorList = new ArrayList<ArrayList<Integer>>();
-ArrayList<Integer> rgbColor = new ArrayList<Integer>();
 
 void setup(){
   size(1200,800);
@@ -16,7 +15,7 @@ void setup(){
     for (int c = 0; c < colors.size(); c++){
       JSONObject flagColor = colors.getJSONObject(c);
       String hex = flagColor.getString("hex");
-      rgbColor = convertColor(hex);
+      ArrayList<Integer> rgbColor = convertColor(hex);
     
       if (!colorList.contains(rgbColor)){
         colorList.add(rgbColor);
@@ -24,7 +23,7 @@ void setup(){
     }
   }
 
-  println(colorList);
+  println(colorList.get(3));
 
 }
 
