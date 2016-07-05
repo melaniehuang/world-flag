@@ -1,7 +1,7 @@
 import java.awt.Color;
 JSONArray countries;
 //Using ArrayLists of ArrayLists here because you can check equality
-ArrayList<ArrayList<Integer>> colorList = new ArrayList<ArrayList<Integer>>();
+ArrayList<ArrayList<Float>> colorList = new ArrayList<ArrayList<Float>>();
 
 void setup(){
   size(1200,800);
@@ -19,13 +19,12 @@ void setup(){
       ArrayList<Integer> rgbColor = hextoRGB(hex);
     
       if (!colorList.contains(rgbColor)){
-        float[] hsbCol = rgbtoHSB(rgbColor);
-        println(hsbCol);
-        colorList.add(rgbColor);
+        ArrayList<Float> hsbCol = rgbtoHSB(rgbColor);
+        colorList.add(hsbCol);
       }
     }
   }
-
+  println(colorList);
   //println(colorList);
 
 }
@@ -54,11 +53,16 @@ ArrayList<Integer> hextoRGB (String countryColor){
 
 }
 
-float[] rgbtoHSB (ArrayList<Integer> rgbList){
+ArrayList<Float> rgbtoHSB (ArrayList<Integer> rgbList){
   float[] hsbvals = new float[3];
 
-  float[] convertColor = Color.RGBtoHSB(rgbList.get(0),rgbList.get(1),rgbList.get(2),hsbvals);
-  convertColor[0]*=360;
+  hsbvals = Color.RGBtoHSB(rgbList.get(0),rgbList.get(1),rgbList.get(2),hsbvals);
+  hsbvals[0]*=360;
   
-  return convertColor;
+  ArrayList<Float> hsbColor = new ArrayList<Float>();
+  hsbColor.add(hsbvals[0]);
+  hsbColor.add(hsbvals[1]);
+  hsbColor.add(hsbvals[2]);
+  
+  return hsbColor;
 }
