@@ -21,8 +21,9 @@ void setup() {
       
       ArrayList<Integer> rgbColor = hextoRGB(hex);
 
-      if (!colorList.contains(rgbColor) && (percent > 2)) {
+      if (!colorList.contains(rgbColor) && (percent > 1)) {
         ArrayList<Float> hsbCol = rgbtoHSB(rgbColor);
+        hsbCol.add(percent);
         colorList.add(hsbCol);     
       }
       
@@ -32,6 +33,15 @@ void setup() {
     }
   }
     println(colorList.size());
+    //float totalpercent = 100*countries.size();
+    
+    //for (int c = 0; c < colorList.size(); c++){
+    //  float countryPercent = colorList.get(c).get(3)/totalpercent;
+    //  colorList[c](3) = countryPercent;
+    //}
+    
+    println(colorList);
+    //println(totalpercent);
 }
 
 void draw() {
