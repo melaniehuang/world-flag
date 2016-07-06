@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.*;
+
 JSONArray countries;
 //Using ArrayLists of ArrayLists here because you can check equality
 ArrayList<ArrayList<Float>> colorList = new ArrayList<ArrayList<Float>>();
@@ -21,10 +23,13 @@ void setup() {
       
       ArrayList<Integer> rgbColor = hextoRGB(hex);
 
-      if (!colorList.contains(rgbColor) && (percent > 1)) {
+      if (!colorList.contains(rgbColor) && (percent > 10)) {
         ArrayList<Float> hsbCol = rgbtoHSB(rgbColor);
-        hsbCol.add(percent);
-        colorList.add(hsbCol);     
+        
+        if (hsbCol.get(1) > 0.3 && hsbCol.get(2) > 0.3) {
+          hsbCol.add(percent);
+          colorList.add(hsbCol); 
+        }
       }
       
       if (colorList.size() > height){
@@ -32,7 +37,15 @@ void setup() {
       }
     }
   }
-    println(colorList.size());
+
+  Collections.sort(colorList, new Comparator<ArrayList<Float>>() {
+    @Override
+    public int compare(ArrayList<Float> a1, ArrayList<Float> a2) {
+      return a1.get(0).compareTo(a2.get(0));
+    }
+  });
+  
+  println(colorList.size());
     //float totalpercent = 100*countries.size();
     
     //for (int c = 0; c < colorList.size(); c++){
