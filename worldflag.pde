@@ -4,6 +4,7 @@ import java.util.*;
 JSONArray countries;
 //Using ArrayLists of ArrayLists here because you can check equality
 ArrayList<ArrayList<Float>> colorList = new ArrayList<ArrayList<Float>>();
+int totalPercent = 0;
 
 void setup() {
   size(1200, 800);
@@ -28,6 +29,7 @@ void setup() {
         
         if (hsbCol.get(1) > 0.3 && hsbCol.get(2) > 0.3) {
           hsbCol.add(percent);
+          totalPercent = totalPercent + floor(percent);
           colorList.add(hsbCol); 
         }
       }
@@ -45,28 +47,25 @@ void setup() {
     }
   });
   
-  println(colorList.size());
-    //float totalpercent = 100*countries.size();
-    
-    //for (int c = 0; c < colorList.size(); c++){
-    //  float countryPercent = colorList.get(c).get(3)/totalpercent;
-    //  colorList[c](3) = countryPercent;
-    //}
-    
-    println(colorList);
-    //println(totalpercent);
+  println(countries.size());
+  println(colorList);
+  noLoop();
 }
 
 void draw() {
   noStroke();
-
-  int rectHeight = height/colorList.size();
-  //println(colorList.get(1).get(0),colorList.get(1).get(1),colorList.get(1).get(2));
-
+  int rectTotal = 0;
+  
   for (int i = 0; i < colorList.size(); i++) {   
     fill(colorList.get(i).get(0),colorList.get(i).get(1),colorList.get(i).get(2));
-    rect(0, i + i*rectHeight, width, rectHeight);
+    
+    float rectValue = ceil((colorList.get(i).get(3))/10);
+    int rectHeight = int(rectValue/2);
+    rectTotal = rectTotal + rectHeight;
+      
+    rect(0, i + i*(rectHeight), width, i + i*(rectHeight));
   }
+  println(rectTotal);
 }
 
 ArrayList<Integer> hextoRGB (String countryColor) {
