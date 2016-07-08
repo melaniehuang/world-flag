@@ -1,3 +1,5 @@
+//TO DO: Add white and black values
+
 import java.awt.Color;
 import java.util.*;
 
@@ -7,7 +9,7 @@ ArrayList<ArrayList<Float>> colorList = new ArrayList<ArrayList<Float>>();
 int totalPercent = 0;
 
 void setup() {
-  size(1200, 800);
+  size(1200, 1000);
   background(0);
   colorMode(HSB,360,1,1); 
 
@@ -24,7 +26,7 @@ void setup() {
       
       ArrayList<Integer> rgbColor = hextoRGB(hex);
 
-      if (!colorList.contains(rgbColor) && (percent > 10)) {
+      if (!colorList.contains(rgbColor) && (percent > 20)) {
         ArrayList<Float> hsbCol = rgbtoHSB(rgbColor);
         
         if (hsbCol.get(1) > 0.3 && hsbCol.get(2) > 0.3) {
@@ -47,7 +49,6 @@ void setup() {
     }
   });
   
-  println(countries.size());
   println(colorList);
   noLoop();
 }
