@@ -6,6 +6,9 @@ import java.util.*;
 JSONArray countries;
 //Using ArrayLists of ArrayLists here because you can check equality
 ArrayList<ArrayList<Float>> colorList = new ArrayList<ArrayList<Float>>();
+ArrayList<ArrayList<Float>> whiteList = new ArrayList<ArrayList<Float>>();
+ArrayList<ArrayList<Float>> blackList = new ArrayList<ArrayList<Float>>();
+
 int totalPercent = 0;
 
 void setup() {
@@ -14,6 +17,11 @@ void setup() {
   colorMode(HSB,360,1,1); 
 
   countries = loadJSONArray("flagColors.json"); 
+  
+  int redCounter = 0;
+  int yellowCounter = 0;
+  int blueCounter = 0;
+  int greenCounter = 0;
 
   for (int i = 0; i < countries.size(); i++) {    
     JSONObject country = countries.getJSONObject(i);      
@@ -25,11 +33,26 @@ void setup() {
       float percent = flagColor.getFloat("percent");
       
       ArrayList<Integer> rgbColor = hextoRGB(hex);
-
-      if (!colorList.contains(rgbColor) && (percent > 20)) {
+      
+      if (!colorList.contains(rgbColor) && percent > 10) {
         ArrayList<Float> hsbCol = rgbtoHSB(rgbColor);
         
-        if (hsbCol.get(1) > 0.3 && hsbCol.get(2) > 0.3) {
+        if (hsbCol.get(2) > 0.95) {
+          whiteList.add(hsbCol); 
+        } else if (hsbCol.get(2) < 0.05){
+          blackList.add(hsbCol); 
+        } else {
+          
+          if (hsbCol.get(0) >= 20 && hsbCol.get(0) < 80){
+            yellowCounter++;
+          } else if (hsbCol.get(0) >= 80 && hsbCol.get(0) < 170) {
+            greenCounter++;
+          } else if (hsbCol.get(0) >= 170 && hsbCol.get(0) < 290){
+            blueCounter++; 
+          } else {
+            redCounter++;
+          }
+            
           hsbCol.add(percent);
           totalPercent = totalPercent + floor(percent);
           colorList.add(hsbCol); 
@@ -49,7 +72,9 @@ void setup() {
     }
   });
   
-  println(colorList);
+  //println("colors:" + colorList + " white:" + whiteList + " black:" + blackList);
+  println("c.size:" +colorList.size() + " w.size:" + whiteList.size() + " b.size:" + blackList.size());
+  println("r:" + redCounter + " y:" + yellowCounter + " g:" + greenCounter + " b:" + blueCounter);
   noLoop();
 }
 
@@ -66,7 +91,6 @@ void draw() {
       
     rect(0, i + i*(rectHeight), width, i + i*(rectHeight));
   }
-  println(rectTotal);
 }
 
 ArrayList<Integer> hextoRGB (String countryColor) {
