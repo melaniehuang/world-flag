@@ -5,19 +5,24 @@ import java.util.*;
 
 JSONArray countries;
 //Using ArrayLists of ArrayLists here because you can check equality
-ArrayList<ArrayList<Float>> colorList = new ArrayList<ArrayList<Float>>();
+ArrayList<ArrayList<Float>> redList = new ArrayList<ArrayList<Float>>();
+ArrayList<ArrayList<Float>> blueList = new ArrayList<ArrayList<Float>>();
+ArrayList<ArrayList<Float>> yellowList = new ArrayList<ArrayList<Float>>();
+ArrayList<ArrayList<Float>> greenList = new ArrayList<ArrayList<Float>>();
 ArrayList<ArrayList<Float>> whiteList = new ArrayList<ArrayList<Float>>();
 ArrayList<ArrayList<Float>> blackList = new ArrayList<ArrayList<Float>>();
 
 int totalPercent = 0;
 
 void setup() {
-  size(1200, 1000);
-  background(0);
+  size(1200, 864);
+  background(50);
   colorMode(HSB,360,1,1); 
 
   countries = loadJSONArray("flagColors.json"); 
   
+  int whiteCounter = 0;
+  int blackCounter = 0;
   int redCounter = 0;
   int yellowCounter = 0;
   int blueCounter = 0;
@@ -34,63 +39,68 @@ void setup() {
       
       ArrayList<Integer> rgbColor = hextoRGB(hex);
       
-      if (!colorList.contains(rgbColor) && percent > 10) {
+      if (percent > 10) {
         ArrayList<Float> hsbCol = rgbtoHSB(rgbColor);
         
-        if (hsbCol.get(2) > 0.95) {
+        if (hsbCol.get(2) > 0.95 && hsbCol.get(1) < 0.05) {
+          whiteCounter++;
           whiteList.add(hsbCol); 
-        } else if (hsbCol.get(2) < 0.05){
+        } else if (hsbCol.get(2) < 0.30){
+          blackCounter++;
           blackList.add(hsbCol); 
         } else {
-          
           if (hsbCol.get(0) >= 20 && hsbCol.get(0) < 80){
             yellowCounter++;
+            hsbCol.add(percent);
+            yellowList.add(hsbCol);
           } else if (hsbCol.get(0) >= 80 && hsbCol.get(0) < 170) {
             greenCounter++;
+            hsbCol.add(percent);
+            greenList.add(hsbCol);
           } else if (hsbCol.get(0) >= 170 && hsbCol.get(0) < 290){
-            blueCounter++; 
+            blueCounter++;
+            hsbCol.add(percent);
+            blueList.add(hsbCol);
           } else {
             redCounter++;
-          }
-            
-          hsbCol.add(percent);
-          totalPercent = totalPercent + floor(percent);
-          colorList.add(hsbCol); 
+            hsbCol.add(percent);
+            redList.add(hsbCol);
+          } 
         }
-      }
       
-      if (colorList.size() > height){
-        println("ERROR: Too many colors, make the canvas height taller");
       }
+    
     }
   }
-
-  Collections.sort(colorList, new Comparator<ArrayList<Float>>() {
-    @Override
-    public int compare(ArrayList<Float> a1, ArrayList<Float> a2) {
-      return a1.get(0).compareTo(a2.get(0));
-    }
-  });
   
-  //println("colors:" + colorList + " white:" + whiteList + " black:" + blackList);
-  println("c.size:" +colorList.size() + " w.size:" + whiteList.size() + " b.size:" + blackList.size());
-  println("r:" + redCounter + " y:" + yellowCounter + " g:" + greenCounter + " b:" + blueCounter);
+  //sortColorLists(redList);
+  
+  println("WHITE: " + whiteList.size() + " / BLACK: " + blackList.size() + " / RED: " + redList.size() + " / YELLOW: " + yellowList.size() + " / GREEN: " + greenList.size() + " / BLUE: " + blueList.size());
+
   noLoop();
 }
 
 void draw() {
-  noStroke();
-  int rectTotal = 0;
+  //noStroke();
+  //int rectTotal = 0;
   
-  for (int i = 0; i < colorList.size(); i++) {   
-    fill(colorList.get(i).get(0),colorList.get(i).get(1),colorList.get(i).get(2));
+  //for (int i = 0; i < colorList.size(); i++) {   
+  //  fill(colorList.get(i).get(0),colorList.get(i).get(1),colorList.get(i).get(2));
     
-    float rectValue = ceil((colorList.get(i).get(3))/10);
-    int rectHeight = int(rectValue/2);
-    rectTotal = rectTotal + rectHeight;
+  //  float rectValue = ceil((colorList.get(i).get(3))/5);
+  //  int rectHeight = int(rectValue/2);
+  //  rectTotal = rectTotal + rectHeight;
       
-    rect(0, i + i*(rectHeight), width, i + i*(rectHeight));
-  }
+  //  rect(0, 3*i, width, 3);  
+  //}
+  
+  //fill(255);
+  //rect(0, 3*colorList.size(), width, 3);
+  //fill(0);
+  //rect(0, 3*colorList.size() + 3, width, 3);
+  
+  //println(rectTotal);
+  //println(countries.size());
 }
 
 ArrayList<Integer> hextoRGB (String countryColor) {
@@ -101,20 +111,26 @@ ArrayList<Integer> hextoRGB (String countryColor) {
     int c = unhex(cHex);
     getHexColors.add(c);
   }
-
   return getHexColors;
 }
 
 ArrayList<Float> rgbtoHSB (ArrayList<Integer> rgbList) {
   float[] hsbvals = new float[3];
-
   hsbvals = Color.RGBtoHSB(rgbList.get(0), rgbList.get(1), rgbList.get(2), hsbvals);
   hsbvals[0]*=360;
 
   ArrayList<Float> hsbColor = new ArrayList<Float>();
-  hsbColor.add(hsbvals[0]);
-  hsbColor.add(hsbvals[1]);
-  hsbColor.add(hsbvals[2]);
-
+  for(int h = 0; h < 3; h++){
+    hsbColor.add(hsbvals[h]);
+  }
   return hsbColor;
+}
+
+void sortColorLists (ArrayList<ArrayList<Float>> colorType){
+  Collections.sort(colorType, new Comparator<ArrayList<Float>>() {
+    @Override
+    public int compare(ArrayList<Float> a1, ArrayList<Float> a2) {
+      return a1.get(0).compareTo(a2.get(0));
+    }
+  });
 }
