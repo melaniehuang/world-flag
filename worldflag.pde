@@ -20,13 +20,6 @@ void setup() {
   colorMode(HSB,360,1,1); 
 
   countries = loadJSONArray("flagColors.json"); 
-  
-  int whiteCounter = 0;
-  int blackCounter = 0;
-  int redCounter = 0;
-  int yellowCounter = 0;
-  int blueCounter = 0;
-  int greenCounter = 0;
 
   for (int i = 0; i < countries.size(); i++) {    
     JSONObject country = countries.getJSONObject(i);      
@@ -43,31 +36,25 @@ void setup() {
         ArrayList<Float> hsbCol = rgbtoHSB(rgbColor);
         
         if (hsbCol.get(2) > 0.95 && hsbCol.get(1) < 0.05) {
-          whiteCounter++;
           whiteList.add(hsbCol); 
         } else if (hsbCol.get(2) < 0.30){
-          blackCounter++;
           blackList.add(hsbCol); 
         } else {
           if (hsbCol.get(0) >= 20 && hsbCol.get(0) < 80){
-            yellowCounter++;
             hsbCol.add(percent);
             yellowList.add(hsbCol);
           } else if (hsbCol.get(0) >= 80 && hsbCol.get(0) < 170) {
-            greenCounter++;
             hsbCol.add(percent);
             greenList.add(hsbCol);
           } else if (hsbCol.get(0) >= 170 && hsbCol.get(0) < 290){
-            blueCounter++;
             hsbCol.add(percent);
             blueList.add(hsbCol);
           } else {
-            redCounter++;
             hsbCol.add(percent);
             redList.add(hsbCol);
           } 
         }
-      
+
       }
     
     }
