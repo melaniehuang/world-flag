@@ -1550,23 +1550,17 @@
   "name": "Iraq",
   "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Flag_of_Iraq.svg/150px-Flag_of_Iraq.svg.png",
   "colors": [{
+    "hex": "CE1126",
+    "percent": 33.33
+  }, {
     "hex": "000000",
-    "percent": 33
+    "percent": 33.33
   }, {
-    "hex": "DCEDE5",
-    "percent": 30.53
+    "hex": "FFFFFF",
+    "percent": 31.14
   }, {
-    "hex": "14844C",
-    "percent": 1.85
-  }, {
-    "hex": "E9949D",
-    "percent": 0.99
-  }, {
-    "hex": "459E71",
-    "percent": 0.33
-  }, {
-    "hex": "84BFA1",
-    "percent": 0.3
+    "hex": "007A3D",
+    "percent": 2.2
   }]
 }, {
   "name": "Ireland",
