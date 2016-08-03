@@ -11,12 +11,13 @@ ArrayList<ArrayList<Float>> yellowList = new ArrayList<ArrayList<Float>>();
 ArrayList<ArrayList<Float>> greenList = new ArrayList<ArrayList<Float>>();
 ArrayList<ArrayList<Float>> whiteList = new ArrayList<ArrayList<Float>>();
 ArrayList<ArrayList<Float>> blackList = new ArrayList<ArrayList<Float>>();
+ArrayList<ArrayList<Float>> allList = new ArrayList<ArrayList<Float>>();
 
 int totalPercent = 0;
 
 void setup() {
   size(1200, 864);
-  background(50);
+  background(255);
   colorMode(HSB,360,1,1); 
 
   countries = loadJSONArray("flagColors.json"); 
@@ -60,34 +61,38 @@ void setup() {
     }
   }
   
-  //sortColorLists(redList);
-  
   println("WHITE: " + whiteList.size() + " / BLACK: " + blackList.size() + " / RED: " + redList.size() + " / YELLOW: " + yellowList.size() + " / GREEN: " + greenList.size() + " / BLUE: " + blueList.size());
-
   noLoop();
 }
 
 void draw() {
-  //noStroke();
-  //int rectTotal = 0;
+  noStroke();
   
-  //for (int i = 0; i < colorList.size(); i++) {   
-  //  fill(colorList.get(i).get(0),colorList.get(i).get(1),colorList.get(i).get(2));
-    
-  //  float rectValue = ceil((colorList.get(i).get(3))/5);
-  //  int rectHeight = int(rectValue/2);
-  //  rectTotal = rectTotal + rectHeight;
-      
-  //  rect(0, 3*i, width, 3);  
-  //}
+  int totalSize = whiteList.size() + blackList.size() + redList.size() + yellowList.size() + greenList.size() + blueList.size();
+  println(totalSize);
   
-  //fill(255);
-  //rect(0, 3*colorList.size(), width, 3);
-  //fill(0);
-  //rect(0, 3*colorList.size() + 3, width, 3);
+  for (int i = 0; i < redList.size(); i++) { 
+   int redHeight = height/redList.size();
+   
+   fill(redList.get(i).get(0),redList.get(i).get(1),redList.get(i).get(2)); 
+   rect(0,redHeight*i,100,redHeight);
+  }
   
-  //println(rectTotal);
-  //println(countries.size());
+  for (int i = 0; i < blueList.size(); i++) { 
+   int blueHeight = height/blueList.size();
+   fill(blueList.get(i).get(0),blueList.get(i).get(1),blueList.get(i).get(2)); 
+   rect(100,blueHeight*i,100,blueHeight);
+  }
+  
+  for (int i = 0; i < greenList.size(); i++) { 
+   fill(greenList.get(i).get(0),greenList.get(i).get(1),greenList.get(i).get(2)); 
+   rect(200,4*i,100,4);
+  }
+  
+  for (int i = 0; i < yellowList.size(); i++) { 
+   fill(yellowList.get(i).get(0),yellowList.get(i).get(1),yellowList.get(i).get(2)); 
+   rect(300,4*i,100,4);
+  }
 }
 
 ArrayList<Integer> hextoRGB (String countryColor) {
